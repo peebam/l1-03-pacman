@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dilikb23abkmt"]
+
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_c806t"]
+[ext_resource type="PackedScene" uid="uid://dfmp6ltu32sqc" path="res://scenes/ui/ui.tscn" id="2_m4ntm"]
+[ext_resource type="PackedScene" uid="uid://t8chrtcfmhmd" path="res://scenes/game.tscn" id="3_ycyrk"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_c806t")
+
+[node name="Ui" parent="." instance=ExtResource("2_m4ntm")]
+
+[node name="Game" parent="." instance=ExtResource("3_ycyrk")]
+
+[connection signal="main_menu_shown" from="Ui" to="." method="_on_ui_main_menu_shown"]
+[connection signal="quiited" from="Ui" to="." method="_on_ui_quiited"]
+[connection signal="run_started" from="Ui" to="." method="_on_ui_run_started"]
+[connection signal="run_failed" from="Game" to="." method="_on_game_run_failed"]
+[connection signal="run_won" from="Game" to="." method="_on_game_run_won"]

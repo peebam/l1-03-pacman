@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://dfmp6ltu32sqc"]
+
+[ext_resource type="Script" path="res://scenes/ui/ui.gd" id="1_4nt68"]
+[ext_resource type="PackedScene" uid="uid://mgbdltlgdiiu" path="res://scenes/ui/main_menu.tscn" id="1_lvo6t"]
+[ext_resource type="PackedScene" uid="uid://gbltcyjqb7jj" path="res://scenes/ui/run_failed_menu.tscn" id="2_7c4a6"]
+[ext_resource type="PackedScene" uid="uid://my8bb6mhwp1t" path="res://scenes/ui/run_won_menu.tscn" id="3_pynoe"]
+[ext_resource type="PackedScene" uid="uid://dbslp3amtqpey" path="res://scenes/ui/hud.tscn" id="4_6fcv0"]
+
+[node name="Ui" type="CanvasLayer"]
+script = ExtResource("1_4nt68")
+
+[node name="MainMenu" parent="." instance=ExtResource("1_lvo6t")]
+
+[node name="RunFailedMenu" parent="." instance=ExtResource("2_7c4a6")]
+visible = false
+
+[node name="RunWonMenu" parent="." instance=ExtResource("3_pynoe")]
+visible = false
+
+[node name="HUD" parent="." instance=ExtResource("4_6fcv0")]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="quiited" from="MainMenu" to="." method="_on_main_menu_quiited"]
+[connection signal="run_started" from="MainMenu" to="." method="_on_main_menu_run_started"]
+[connection signal="main_menu" from="RunFailedMenu" to="." method="_on_run_failed_menu_main_menu"]
+[connection signal="main_menu" from="RunWonMenu" to="." method="_on_run_won_menu_main_menu"]
