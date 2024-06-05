@@ -21,10 +21,11 @@ Events="*res://autoload/events.gd"
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=400
+window/size/viewport_width=232
+window/size/viewport_height=320
 window/size/mode=2
 window/stretch/mode="viewport"
+window/stretch/scale_mode="integer"
 
 [gui]
 
@@ -33,3 +34,4 @@ theme/custom="res://assets/themes/default_theme.tres"
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

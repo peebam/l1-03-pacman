@@ -13,9 +13,3 @@ script = ExtResource("1_7elkl")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-
-[node name="RunStopButton" type="Button" parent="HBoxContainer"]
-layout_mode = 2
-text = "STOP"
-
-[connection signal="pressed" from="HBoxContainer/RunStopButton" to="." method="_on_run_stop_button_pressed"]

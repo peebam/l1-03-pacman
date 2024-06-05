@@ -36,7 +36,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_type_variation = &"HeaderLarge"
 text = "Level 1
-Game Title"
+Pacman"
 horizontal_alignment = 1
 vertical_alignment = 1
 
