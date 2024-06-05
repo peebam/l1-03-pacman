@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=3 uid="uid://0wi57t3gd62l"]
+
+[ext_resource type="Script" path="res://scenes/entities/player.gd" id="1_1h1d3"]
+[ext_resource type="Texture2D" uid="uid://2m0kb4baak5q" path="res://assets/sprites_sheet.png" id="1_v3atv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vsnun"]
+atlas = ExtResource("1_v3atv")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fqhym"]
+atlas = ExtResource("1_v3atv")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1lxa2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vsnun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fqhym")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m7yid"]
+size = Vector2(16, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ad1h7"]
+size = Vector2(12, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w5631"]
+size = Vector2(2, 14)
+
+[node name="Player" type="CharacterBody2D"]
+motion_mode = 1
+up_direction = Vector2(0, 1)
+safe_margin = 1.0
+script = ExtResource("1_1h1d3")
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+sprite_frames = SubResource("SpriteFrames_1lxa2")
+animation = &"run"
+frame_progress = 0.326421
+
+[node name="CollisionShapeHMove" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_m7yid")
+
+[node name="CollisionShapeVMove" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_ad1h7")
+disabled = true
+
+[node name="DirectionDetector" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="ShapeCast" type="ShapeCast2D" parent="DirectionDetector"]
+unique_name_in_owner = true
+position = Vector2(11, 0)
+shape = SubResource("RectangleShape2D_w5631")
+target_position = Vector2(0, 0)
+
+[connection signal="direction_changed" from="." to="." method="_on_direction_changed"]
+[connection signal="input_event" from="." to="." method="_on_input_event"]
