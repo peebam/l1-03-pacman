@@ -73,3 +73,8 @@ func _on_direction_changed() -> void:
 	%CollisionShapeVMove.disabled = _current_direction.y == 0
 	$AnimatedSprite.rotation = _current_direction.angle()
 
+
+
+func _on_pellet_dectector_area_entered(area: Area2D) -> void:
+	if area is Pellet:
+		area.queue_free()

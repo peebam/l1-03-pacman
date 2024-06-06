@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://0wi57t3gd62l"]
+[gd_scene load_steps=10 format=3 uid="uid://0wi57t3gd62l"]
 
 [ext_resource type="Script" path="res://scenes/entities/player.gd" id="1_1h1d3"]
 [ext_resource type="Texture2D" uid="uid://2m0kb4baak5q" path="res://assets/sprites_sheet.png" id="1_v3atv"]
@@ -34,7 +34,12 @@ size = Vector2(12, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w5631"]
 size = Vector2(2, 14)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ec5pw"]
+radius = 3.0
+
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 3
 motion_mode = 1
 up_direction = Vector2(0, 1)
 safe_margin = 1.0
@@ -64,5 +69,14 @@ position = Vector2(11, 0)
 shape = SubResource("RectangleShape2D_w5631")
 target_position = Vector2(0, 0)
 
+[node name="PelletDectector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape2D" parent="PelletDectector"]
+position = Vector2(3, 0)
+shape = SubResource("CircleShape2D_ec5pw")
+
 [connection signal="direction_changed" from="." to="." method="_on_direction_changed"]
 [connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="area_entered" from="PelletDectector" to="." method="_on_pellet_dectector_area_entered"]
