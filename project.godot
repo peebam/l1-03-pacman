@@ -36,6 +36,7 @@ theme/custom="res://assets/themes/default_theme.tres"
 2d_physics/layer_1="Walls"
 2d_physics/layer_2="Pellets"
 2d_physics/layer_3="Actors"
+2d_physics/layer_4="Teleporters"
 
 [rendering]
 

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://basg2rh644oma"]
+
+[ext_resource type="Script" path="res://scenes/levels/teleporter.gd" id="1_31bgg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jwdrj"]
+size = Vector2(8, 16)
+
+[node name="Teleporter" type="Area2D"]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_31bgg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jwdrj")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
