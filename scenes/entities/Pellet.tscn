@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://4bftclgi7600"]
+
+[ext_resource type="Script" path="res://scenes/entities/pellet.gd" id="1_uxnfc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sfoiu"]
+radius = 2.0
+
+[node name="Pellet" type="Area2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_uxnfc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_sfoiu")

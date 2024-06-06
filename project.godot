@@ -31,6 +31,12 @@ window/stretch/scale_mode="integer"
 
 theme/custom="res://assets/themes/default_theme.tres"
 
+[layer_names]
+
+2d_physics/layer_1="Walls"
+2d_physics/layer_2="Pellets"
+2d_physics/layer_3="Actors"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
