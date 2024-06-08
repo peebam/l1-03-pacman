@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://4bftclgi7600"]
 
-[ext_resource type="Script" path="res://scenes/entities/pellet.gd" id="1_uxnfc"]
+[ext_resource type="Script" path="res://scenes/levels/pellet.gd" id="1_uxnfc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sfoiu"]
 radius = 2.0
