@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3 uid="uid://colwcp1rh3dq"]
+
+[ext_resource type="PackedScene" uid="uid://ciqylsd156lix" path="res://scenes/entities/base/fantom.tscn" id="1_0r13h"]
+[ext_resource type="Texture2D" uid="uid://2m0kb4baak5q" path="res://assets/sprites_sheet.png" id="2_88w5w"]
+[ext_resource type="Script" path="res://scenes/entities/orange_fantom.gd" id="2_mdvba"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7man5"]
+atlas = ExtResource("2_88w5w")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8c4g"]
+atlas = ExtResource("2_88w5w")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_37ne7"]
+atlas = ExtResource("2_88w5w")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xa83n"]
+atlas = ExtResource("2_88w5w")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_70lrm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7man5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r8c4g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_37ne7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xa83n")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="OrangeFantom" instance=ExtResource("1_0r13h")]
+script = ExtResource("2_mdvba")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_70lrm")
+animation = &"default"
+autoplay = "default"
+
+[node name="NavigationAgent" parent="." index="2"]
+path_desired_distance = 3.0
+target_desired_distance = 3.0
+path_max_distance = 50.0
+
+[node name="Movable" parent="." index="3"]
+speed = 50.0
+
+[node name="Timer" type="Timer" parent="." index="4"]
+one_shot = true
+autostart = true
+
+[connection signal="destination_reached" from="." to="." method="_on_destination_reached"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

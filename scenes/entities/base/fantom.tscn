@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://ciqylsd156lix"]
+
+[ext_resource type="Script" path="res://scenes/entities/base/fantom.gd" id="1_6srdj"]
+[ext_resource type="PackedScene" uid="uid://b6ir7mslf57h2" path="res://scenes/entities/components/movable.tscn" id="2_gjm8e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_80lhg"]
+size = Vector2(16, 16)
+
+[node name="Fantom" type="Area2D"]
+script = ExtResource("1_6srdj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_80lhg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+animation = &""
+autoplay = "run"
+
+[node name="NavigationAgent" type="NavigationAgent2D" parent="."]
+path_desired_distance = 1.0
+target_desired_distance = 1.0
+path_max_distance = 10.0
+debug_enabled = true
+
+[node name="Movable" parent="." instance=ExtResource("2_gjm8e")]
+speed = 100.0
+
+[connection signal="moved" from="Movable" to="." method="_on_movable_moved"]

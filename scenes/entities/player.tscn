@@ -1,28 +1,42 @@
-[gd_scene load_steps=10 format=3 uid="uid://0wi57t3gd62l"]
+[gd_scene load_steps=12 format=3 uid="uid://0wi57t3gd62l"]
 
 [ext_resource type="Script" path="res://scenes/entities/player.gd" id="1_1h1d3"]
 [ext_resource type="Texture2D" uid="uid://2m0kb4baak5q" path="res://assets/sprites_sheet.png" id="1_v3atv"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vsnun"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ukfs5"]
+atlas = ExtResource("1_v3atv")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dhgrx"]
 atlas = ExtResource("1_v3atv")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fqhym"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hebsg"]
 atlas = ExtResource("1_v3atv")
-region = Rect2(0, 0, 16, 16)
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_am1aj"]
+atlas = ExtResource("1_v3atv")
+region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1lxa2"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vsnun")
+"texture": SubResource("AtlasTexture_ukfs5")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fqhym")
+"texture": SubResource("AtlasTexture_dhgrx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hebsg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_am1aj")
 }],
 "loop": true,
 "name": &"run",
-"speed": 10.0
+"speed": 15.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m7yid"]
