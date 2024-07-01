@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://bdipq0351gw37"]
+
+[ext_resource type="PackedScene" uid="uid://ciqylsd156lix" path="res://scenes/entities/base/fantom.tscn" id="1_6ai85"]
+[ext_resource type="Script" path="res://scenes/entities/red_fantom.gd" id="2_0eae7"]
+[ext_resource type="Texture2D" uid="uid://2m0kb4baak5q" path="res://assets/sprites_sheet.png" id="2_qj8g8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g41fr"]
+atlas = ExtResource("2_qj8g8")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rlv5g"]
+atlas = ExtResource("2_qj8g8")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1b3vg"]
+atlas = ExtResource("2_qj8g8")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fybiw"]
+atlas = ExtResource("2_qj8g8")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pqixh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g41fr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rlv5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1b3vg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fybiw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="RedFantom" instance=ExtResource("1_6ai85")]
+script = ExtResource("2_0eae7")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_pqixh")
+animation = &"default"
+autoplay = "default"
+frame_progress = 0.792525
+
+[node name="Movable" parent="." index="3"]
+speed = 50.0
+
+[node name="Timer" type="Timer" parent="." index="4"]
+one_shot = true
+autostart = true
+
+[connection signal="destination_reached" from="." to="." method="_on_destination_reached"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
