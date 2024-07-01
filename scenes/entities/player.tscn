@@ -1,7 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://0wi57t3gd62l"]
+[gd_scene load_steps=11 format=3 uid="uid://0wi57t3gd62l"]
 
 [ext_resource type="Script" path="res://scenes/entities/player.gd" id="1_1h1d3"]
 [ext_resource type="Texture2D" uid="uid://2m0kb4baak5q" path="res://assets/sprites_sheet.png" id="1_v3atv"]
+[ext_resource type="PackedScene" uid="uid://b6ir7mslf57h2" path="res://scenes/entities/components/movable.tscn" id="2_konhl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_extew"]
+radius = 7.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ukfs5"]
 atlas = ExtResource("1_v3atv")
@@ -39,49 +43,25 @@ animations = [{
 "speed": 15.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_m7yid"]
-size = Vector2(16, 12)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ad1h7"]
-size = Vector2(12, 16)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_w5631"]
-size = Vector2(2, 14)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_ec5pw"]
 radius = 3.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="Area2D"]
 collision_layer = 4
 collision_mask = 11
-motion_mode = 1
-up_direction = Vector2(0, 1)
-safe_margin = 1.0
 script = ExtResource("1_1h1d3")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_extew")
+
+[node name="Movable" parent="." instance=ExtResource("2_konhl")]
+speed = 100.0
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_1lxa2")
 animation = &"run"
 frame_progress = 0.326421
-
-[node name="CollisionShapeHMove" type="CollisionShape2D" parent="."]
-unique_name_in_owner = true
-shape = SubResource("RectangleShape2D_m7yid")
-
-[node name="CollisionShapeVMove" type="CollisionShape2D" parent="."]
-unique_name_in_owner = true
-shape = SubResource("RectangleShape2D_ad1h7")
-disabled = true
-
-[node name="DirectionDetector" type="Node2D" parent="."]
-unique_name_in_owner = true
-
-[node name="ShapeCast" type="ShapeCast2D" parent="DirectionDetector"]
-unique_name_in_owner = true
-position = Vector2(11, 0)
-shape = SubResource("RectangleShape2D_w5631")
-target_position = Vector2(0, 0)
 
 [node name="PelletDectector" type="Area2D" parent="."]
 collision_layer = 0
@@ -92,5 +72,5 @@ position = Vector2(3, 0)
 shape = SubResource("CircleShape2D_ec5pw")
 
 [connection signal="direction_changed" from="." to="." method="_on_direction_changed"]
-[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="moved" from="Movable" to="." method="_on_movable_moved"]
 [connection signal="area_entered" from="PelletDectector" to="." method="_on_pellet_dectector_area_entered"]

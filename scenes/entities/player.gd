@@ -1,48 +1,46 @@
-class_name Player extends CharacterBody2D
+class_name Player extends Area2D
 
 signal direction_changed()
 
-const SPEED := 100
+@onready var _movable : Movable = $Movable
 
+var _cells : Array[Vector2i]
 var _current_direction := Vector2.RIGHT :
 	set = _set_current_direction
 var _inputs_stack: Array[Vector2] = []
-
-func _physics_process(delta: float) -> void:
-	var input := _get_input_direction()
-	if input != Vector2.ZERO and input != _current_direction:
-		if _is_direction_possible(input):
-			_current_direction = input
-
-	velocity = _current_direction * 100
-	move_and_slide()
-
-	if is_on_wall():
-		%AnimatedSprite.stop()
-	else:
-		%AnimatedSprite.play("run")
 
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_left"):
 		_inputs_stack.push_front(Vector2.LEFT)
 	if Input.is_action_just_released("ui_left"):
-		_inputs_stack.erase(Vector2.LEFT)
+		_inputs_stack = _inputs_stack.filter(func(f): return f != Vector2.LEFT)
 
 	if Input.is_action_just_pressed("ui_right"):
 		_inputs_stack.push_front(Vector2.RIGHT)
 	if Input.is_action_just_released("ui_right"):
-		_inputs_stack.erase(Vector2.RIGHT)
+		_inputs_stack = _inputs_stack.filter(func(f): return f != Vector2.RIGHT)
 
 	if Input.is_action_just_pressed("ui_up"):
 		_inputs_stack.push_front(Vector2.UP)
 	if Input.is_action_just_released("ui_up"):
-		_inputs_stack.erase(Vector2.UP)
+		_inputs_stack = _inputs_stack.filter(func(f): return f != Vector2.UP)
 
 	if Input.is_action_just_pressed("ui_down"):
 		_inputs_stack.push_front(Vector2.DOWN)
 	if Input.is_action_just_released("ui_down"):
-		_inputs_stack.erase(Vector2.DOWN)
+		_inputs_stack = _inputs_stack.filter(func(f): return f != Vector2.DOWN)
+
+
+func _process(delta) -> void:
+	_try_move()
+
+# Public
+
+func start(level: Level) -> void:
+	_cells = level.cells_player
+	_movable.cell_size = level.cell_size
+	_movable.align_to_grid()
 
 # Private
 
@@ -54,9 +52,16 @@ func _get_input_direction() -> Vector2:
 
 
 func _is_direction_possible(input_direction: Vector2) -> bool:
-	%DirectionDetector.rotation = input_direction.angle()
-	%ShapeCast.force_shapecast_update()
-	return not %ShapeCast.is_colliding()
+	return true
+
+
+func _is_move_possible(direction: Vector2i) -> bool:
+	if _movable.is_moving:
+		return false
+
+	var coordinates := direction + _movable.get_coordinates()
+	var move_possible := _cells.has(coordinates)
+	return move_possible
 
 
 func _set_current_direction(value: Vector2) -> void:
@@ -66,12 +71,26 @@ func _set_current_direction(value: Vector2) -> void:
 	_current_direction = value
 	direction_changed.emit()
 
+
+func _try_move() -> void:
+	var direction := _get_input_direction()
+	if direction != Vector2.ZERO:
+		if _is_move_possible(direction):
+			_current_direction = direction
+
+	if _is_move_possible(_current_direction):
+		_movable.move(_current_direction)
+		%AnimatedSprite.play("run")
+
 # Signals
 
 func _on_direction_changed() -> void:
-	%CollisionShapeHMove.disabled = _current_direction.x == 0
-	%CollisionShapeVMove.disabled = _current_direction.y == 0
 	$AnimatedSprite.rotation = _current_direction.angle()
+
+
+func _on_movable_moved():
+	Events.player_moved.emit(position)
+	_try_move()
 
 
 func _on_pellet_dectector_area_entered(area: Area2D) -> void:
