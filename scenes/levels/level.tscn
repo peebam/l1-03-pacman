@@ -2,5 +2,6 @@
 
 [ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_ss7sg"]
 
-[node name="Level" type="Node2D"]
+[node name="Level" type="TileMap"]
+format = 2
 script = ExtResource("1_ss7sg")
