@@ -30,6 +30,10 @@ func get_point_path(from: Vector2i, to: Vector2i) -> PackedVector2Array:
 	return _astar.get_point_path(from_id, to_id)
 
 
+func init() -> void:
+	pass
+
+
 func coortinates_to_position(coordinates: Vector2i) -> Vector2:
 	var position: Vector2 = coordinates * cell_size + cell_size / 2
 	return position

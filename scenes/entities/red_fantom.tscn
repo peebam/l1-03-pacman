@@ -4,85 +4,81 @@
 [ext_resource type="Script" path="res://scenes/entities/red_fantom.gd" id="2_0eae7"]
 [ext_resource type="Texture2D" uid="uid://2m0kb4baak5q" path="res://assets/sprites_sheet.png" id="2_qj8g8"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_or8xd"]
-atlas = ExtResource("2_qj8g8")
-region = Rect2(0, 64, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_46meo"]
-atlas = ExtResource("2_qj8g8")
-region = Rect2(16, 64, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yd4t3"]
-atlas = ExtResource("2_qj8g8")
-region = Rect2(32, 64, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_me3cw"]
-atlas = ExtResource("2_qj8g8")
-region = Rect2(48, 64, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g41fr"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_cj00j"]
 atlas = ExtResource("2_qj8g8")
 region = Rect2(0, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rlv5g"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwcli"]
 atlas = ExtResource("2_qj8g8")
 region = Rect2(16, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1b3vg"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qc72t"]
 atlas = ExtResource("2_qj8g8")
 region = Rect2(32, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fybiw"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfo60"]
 atlas = ExtResource("2_qj8g8")
 region = Rect2(48, 16, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_pqixh"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pukrj"]
+atlas = ExtResource("2_qj8g8")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o7wub"]
+atlas = ExtResource("2_qj8g8")
+region = Rect2(16, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vyjwb"]
+atlas = ExtResource("2_qj8g8")
+region = Rect2(32, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8cm35"]
+atlas = ExtResource("2_qj8g8")
+region = Rect2(48, 64, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g3auc"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_or8xd")
+"texture": SubResource("AtlasTexture_cj00j")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_46meo")
+"texture": SubResource("AtlasTexture_mwcli")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yd4t3")
+"texture": SubResource("AtlasTexture_qc72t")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_me3cw")
+"texture": SubResource("AtlasTexture_qfo60")
 }],
 "loop": true,
-"name": &"afraid",
+"name": &"run",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_g41fr")
+"texture": SubResource("AtlasTexture_pukrj")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rlv5g")
+"texture": SubResource("AtlasTexture_o7wub")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1b3vg")
+"texture": SubResource("AtlasTexture_vyjwb")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fybiw")
+"texture": SubResource("AtlasTexture_8cm35")
 }],
 "loop": true,
-"name": &"default",
+"name": &"scared",
 "speed": 5.0
 }]
 
 [node name="RedFantom" instance=ExtResource("1_6ai85")]
 script = ExtResource("2_0eae7")
 
-[node name="AnimatedSprite2D" parent="." index="1"]
-sprite_frames = SubResource("SpriteFrames_pqixh")
-animation = &"afraid"
-autoplay = "default"
-
-[node name="Movable" parent="." index="3"]
-speed = 50.0
+[node name="BodySprite" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_g3auc")
+animation = &"run"
 
 [node name="Timer" type="Timer" parent="." index="4"]
 one_shot = true
@@ -92,6 +88,9 @@ autostart = true
 unique_name_in_owner = true
 wait_time = 2.0
 one_shot = true
+
+[node name="Movable" parent="." index="6"]
+speed = 50.0
 
 [connection signal="destination_reached" from="." to="." method="_on_destination_reached"]
 [connection signal="destination_unreachable" from="." to="." method="_on_destination_unreachable"]

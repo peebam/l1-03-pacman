@@ -4,4 +4,4 @@ extends Area2D
 
 func _on_area_entered(area):
 	if area is Player:
-		area.position = destination_point
+		area.teleport(destination_point)

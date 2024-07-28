@@ -23,7 +23,6 @@ Events="*res://autoload/events.gd"
 
 window/size/viewport_width=232
 window/size/viewport_height=320
-window/size/mode=2
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
@@ -33,9 +32,9 @@ theme/custom="res://assets/themes/default_theme.tres"
 
 [layer_names]
 
-2d_physics/layer_1="Walls"
+2d_physics/layer_1="Player"
 2d_physics/layer_2="Pellets"
-2d_physics/layer_3="Actors"
+2d_physics/layer_3="Fantoms"
 2d_physics/layer_4="Teleporters"
 
 [rendering]

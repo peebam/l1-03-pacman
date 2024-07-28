@@ -1,64 +1,99 @@
-[gd_scene load_steps=9 format=3 uid="uid://colwcp1rh3dq"]
+[gd_scene load_steps=13 format=3 uid="uid://colwcp1rh3dq"]
 
 [ext_resource type="PackedScene" uid="uid://ciqylsd156lix" path="res://scenes/entities/base/fantom.tscn" id="1_0r13h"]
 [ext_resource type="Texture2D" uid="uid://2m0kb4baak5q" path="res://assets/sprites_sheet.png" id="2_88w5w"]
 [ext_resource type="Script" path="res://scenes/entities/orange_fantom.gd" id="2_mdvba"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7man5"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_mxxhy"]
 atlas = ExtResource("2_88w5w")
 region = Rect2(0, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_r8c4g"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_tvhho"]
 atlas = ExtResource("2_88w5w")
 region = Rect2(16, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_37ne7"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1kaj"]
 atlas = ExtResource("2_88w5w")
 region = Rect2(32, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xa83n"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmkrc"]
 atlas = ExtResource("2_88w5w")
 region = Rect2(48, 32, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_70lrm"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktpa5"]
+atlas = ExtResource("2_88w5w")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4ad7"]
+atlas = ExtResource("2_88w5w")
+region = Rect2(16, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jyqr3"]
+atlas = ExtResource("2_88w5w")
+region = Rect2(32, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gr8nh"]
+atlas = ExtResource("2_88w5w")
+region = Rect2(48, 64, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bh5qk"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7man5")
+"texture": SubResource("AtlasTexture_mxxhy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_r8c4g")
+"texture": SubResource("AtlasTexture_tvhho")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_37ne7")
+"texture": SubResource("AtlasTexture_h1kaj")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xa83n")
+"texture": SubResource("AtlasTexture_hmkrc")
 }],
 "loop": true,
-"name": &"default",
+"name": &"run",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktpa5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4ad7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jyqr3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gr8nh")
+}],
+"loop": true,
+"name": &"scared",
 "speed": 5.0
 }]
 
 [node name="OrangeFantom" instance=ExtResource("1_0r13h")]
 script = ExtResource("2_mdvba")
 
-[node name="AnimatedSprite2D" parent="." index="1"]
-sprite_frames = SubResource("SpriteFrames_70lrm")
-animation = &"default"
-autoplay = "default"
+[node name="BodySprite" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_bh5qk")
+animation = &"scared"
 
-[node name="NavigationAgent" parent="." index="2"]
+[node name="EyesSprite" parent="." index="2"]
+animation = &"right"
+
+[node name="NavigationAgent" parent="." index="3"]
 path_desired_distance = 3.0
 target_desired_distance = 3.0
 path_max_distance = 50.0
 
-[node name="Movable" parent="." index="3"]
-speed = 50.0
-
 [node name="Timer" type="Timer" parent="." index="4"]
 one_shot = true
 autostart = true
+
+[node name="Movable" parent="." index="5"]
+speed = 50.0
 
 [connection signal="destination_reached" from="." to="." method="_on_destination_reached"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

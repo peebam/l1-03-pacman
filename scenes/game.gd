@@ -9,6 +9,9 @@ var _level : Level
 var _level_01_scene: PackedScene = load("res://scenes/levels/level_01.tscn")
 var _player_scene: PackedScene = load("res://scenes/entities/player.tscn")
 
+func _ready() -> void:
+	Events.player_killed.connect(_on_Event_player_killed)
+
 # Public
 
 func new_run() -> void:
@@ -20,8 +23,7 @@ func new_run() -> void:
 	add_child(_level)
 	_level.position = Vector2(0, 10)
 
-	var player = _player_scene.instantiate()
-	_level.enter_player(player)
+	_enter_player()
 
 func stop_run() -> void:
 	if not _is_running:
@@ -29,3 +31,15 @@ func stop_run() -> void:
 	_is_running = false
 
 	remove_child(_level)
+
+# Private
+
+func _enter_player() -> void:
+	var player = _player_scene.instantiate()
+	_level.enter_player(player)
+
+# Signal
+
+func _on_Event_player_killed() -> void:
+	_level.init()
+	_enter_player()

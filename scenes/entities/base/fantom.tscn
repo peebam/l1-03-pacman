@@ -1,20 +1,77 @@
-[gd_scene load_steps=4 format=3 uid="uid://ciqylsd156lix"]
+[gd_scene load_steps=10 format=3 uid="uid://ciqylsd156lix"]
 
 [ext_resource type="Script" path="res://scenes/entities/base/fantom.gd" id="1_6srdj"]
 [ext_resource type="PackedScene" uid="uid://b6ir7mslf57h2" path="res://scenes/entities/components/movable.tscn" id="2_gjm8e"]
+[ext_resource type="Texture2D" uid="uid://4hiq6x6j8blv" path="res://assets/eyes_sheet.png" id="2_mndmg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_80lhg"]
 size = Vector2(16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_mavnh"]
+atlas = ExtResource("2_mndmg")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1u37y"]
+atlas = ExtResource("2_mndmg")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v7b1s"]
+atlas = ExtResource("2_mndmg")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h12ty"]
+atlas = ExtResource("2_mndmg")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rw7r5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mavnh")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1u37y")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v7b1s")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h12ty")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
 [node name="Fantom" type="Area2D"]
+collision_layer = 4
 script = ExtResource("1_6srdj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_80lhg")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="BodySprite" type="AnimatedSprite2D" parent="."]
 animation = &""
 autoplay = "run"
+
+[node name="EyesSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_rw7r5")
+animation = &"down"
 
 [node name="NavigationAgent" type="NavigationAgent2D" parent="."]
 path_desired_distance = 1.0
@@ -25,4 +82,6 @@ debug_enabled = true
 [node name="Movable" parent="." instance=ExtResource("2_gjm8e")]
 speed = 100.0
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="direction_set" from="." to="." method="_on_direction_set"]
 [connection signal="moved" from="Movable" to="." method="_on_movable_moved"]

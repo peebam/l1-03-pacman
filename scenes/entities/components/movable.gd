@@ -8,6 +8,7 @@ signal moved(coordinates: Vector2i)
 
 var is_moving : bool
 
+var _tween: Tween
 # Public
 
 func align_to_grid() -> void:
@@ -22,21 +23,35 @@ func move(direction: Vector2i) -> void:
 	if not is_inside_tree():
 		return
 
+	if is_moving:
+		return
+
 	is_moving = true
 
 	var new_position := _compute_position_on_grid(direction)
 
-	var tween := get_tree().create_tween()
+	_tween = get_tree().create_tween()
+	_tween.finished.connect(_on_move_finished)
+
 	var distance: float = owner.position.distance_to(new_position)
 	var time := distance / speed
-	tween.tween_property(owner, "position", new_position, time)
-	await tween.finished
+	_tween.tween_property(owner, "position", new_position, time)
 
+
+func stop() -> void:
+	if not is_inside_tree():
+		return
+
+	_tween.stop()
 	is_moving = false
-	moved.emit()
 
 # Private
 
 func _compute_position_on_grid(direction: Vector2i) -> Vector2 :
 	var coordinates := get_coordinates()
 	return Vector2(coordinates + direction) * Vector2(cell_size) + (Vector2(cell_size) / 2)
+
+
+func _on_move_finished() -> void:
+	is_moving = false
+	moved.emit()

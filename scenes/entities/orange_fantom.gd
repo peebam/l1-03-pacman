@@ -1,15 +1,17 @@
 extends Fantom
 
+# Public
+
+func reset() -> void:
+	super.reset()
+	$AnimatedSprite2D.play("default")
+	$Timer.start()
+
 # Private
 
 func _go() -> void:
 	var cell := _pick_random_destination()
 	go(cell)
-
-
-func _pick_random_destination() -> Vector2i:
-	var cell: Vector2i = _level.cells_enemies.pick_random()
-	return cell
 
 # Signals
 
